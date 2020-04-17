@@ -9,7 +9,7 @@ const forecast = (longitude, latitude, cb) => {
         } else if(body.error) {
             cb('Unable to find location!', undefined);
         } else {
-            cb(undefined, body.current.weather_descriptions[0] + '. It is currently ' + body.current.temperature + ' degrees out and it feels like ' + body.current.feelslike + ' out');
+            cb(undefined, body.current.weather_descriptions[0] + '. It is currently ' + body.current.temperature + ' degrees out and it feels like ' + body.current.feelslike + ' degrees out. There is a ' + body.current.precip + '% chance of rain. The wind speed is ' + body.current.wind_speed + 'km/h and the Humidity is ' + body.current.humidity);
         }
     });
 }
