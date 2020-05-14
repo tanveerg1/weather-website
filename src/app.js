@@ -1,4 +1,4 @@
-const geocode = require('./utils/geocode');
+const { geocode, geocodeButton } = require('./utils/geocode');
 const forecast = require('./utils/forecast');
 const path = require('path');
 const express = require('express');
@@ -68,6 +68,27 @@ app.get('/weather', (req, res) => {
             })
         });
     });
+});
+
+app.get('/weatherbutton', (req, res) => {
+    const latitude = req.query.latitude;
+    const longitude = req.query.longitude;
+
+    geocodeButton(longitude, latitude,(error, {location}) => {
+        if(error) {
+            return res.send({ error });
+        }
+
+        forecast(longitude, latitude, (error, forecastData) => {
+            if(error) {
+                return res.send({ error });
+            }
+            res.send({
+                forecast: forecastData,
+                location: location
+            });
+        });
+    }); 
 });
 
 app.get('/products', (req, res) => {
